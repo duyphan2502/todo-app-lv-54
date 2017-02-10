@@ -23,7 +23,7 @@ class AppController extends Controller
         if (!$category) {
             abort(404);
         }
-        $items = $category->todoItems()->get();
+        $items = $category->todoItems()->orderBy('created_at', 'DESC')->get();
 
         return view('category-details', compact('category', 'items'));
     }

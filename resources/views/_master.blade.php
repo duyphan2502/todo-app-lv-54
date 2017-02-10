@@ -13,6 +13,7 @@
           integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ"
           crossorigin="anonymous">
     <link href="https://use.fontawesome.com/20b839666d.css" media="all" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->

@@ -14,7 +14,7 @@
         <div class="clearfix"></div>
         <div id="accordion" role="tablist" aria-multiselectable="true" data-count="{{ $items->count() }}">
             @foreach($items as $key => $item)
-                <div class="card">
+                <div class="card {{ $item->status == 'done' ? 'done-task' : '' }}">
                     <div class="card-header" role="tab" id="todo_item_heading_{{ $key + 1 }}">
                         <a data-toggle="collapse" data-parent="#accordion" href="#todo_item_collapse_{{ $key + 1 }}"
                            aria-expanded="{{ $key == 0 ? 'true' : 'false' }}"
@@ -22,10 +22,13 @@
                             {{ $item->title }}
                         </a>
                         <div class="pull-right">
-                            <span class="custom-checkbox">
-                                <input type="checkbox" data-id="{{ $item->id }}">
-                                <label><i class="fa fa-check"></i></label>
-                            </span>
+                            <label class="custom-checkbox change-status">
+                                <input type="checkbox"
+                                       {{ $item->status == 'done' ? 'checked' : '' }}
+                                       data-id="{{ $item->id }}"
+                                       data-href="{{ route('todo-item.update', ['id' => null]) }}">
+                                <span><i class="fa fa-check"></i></span>
+                            </label>
                             <a href="{{ route('web.delete-task.get', [$item->id]) }}" class="btn btn-danger btn-sm"><i
                                         class="fa fa-trash"></i></a>
                         </div>

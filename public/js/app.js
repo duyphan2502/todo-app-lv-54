@@ -103,9 +103,62 @@
         });
     };
 
+    var HandleTodoItem = function HandleTodoItem() {
+        $('.change-status').find('input[type=checkbox]').on('change', function () {
+            var status = void 0,
+                $checkbox = $(this);
+            if ($checkbox.is(':checked')) {
+                $checkbox.closest('.card').addClass('done-task');
+                status = 'done';
+            } else {
+                $checkbox.closest('.card').removeClass('done-task');
+                status = 'doing';
+            }
+            $.ajax({
+                url: $checkbox.attr('data-href') + '/' + $checkbox.attr('data-id'),
+                type: 'PUT',
+                dataType: 'json',
+                data: {
+                    status: status
+                },
+                beforeSend: function beforeSend() {
+                    $body.addClass('on-loading');
+                },
+                error: function error() {},
+                success: function success(data) {},
+                complete: function complete(data) {
+                    $body.removeClass('on-loading');
+                }
+            });
+        });
+
+        $body.on('submit', '.create-task-form', function (event) {
+            event.preventDefault();
+            var $form = $(this);
+            var data = $form.serialize();
+            $.ajax({
+                url: $form.attr('action'),
+                type: 'POST',
+                dataType: 'json',
+                data: data,
+                beforeSend: function beforeSend() {
+                    $body.addClass('on-loading');
+                },
+                error: function error() {},
+                success: function success(data) {
+                    location.reload();
+                },
+                complete: function complete(data) {
+                    $body.removeClass('on-loading');
+                }
+            });
+        });
+    };
+
     return {
         init: function init() {
             HandleCategory();
+            HandleTodoItem();
         }
     };
 }();

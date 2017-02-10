@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateTodoItem;
+use App\Http\Requests\UpdateTodoItem;
 use App\Models\TodoItem;
-use Illuminate\Http\Request;
 
 class TodoItemController extends Controller
 {
@@ -34,7 +34,7 @@ class TodoItemController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, TodoItem $model)
+    public function store(CreateTodoItem $request, TodoItem $model)
     {
         $result = $model->create($request->all());
         $error = $result ? false : true;
@@ -72,9 +72,17 @@ class TodoItemController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateTodoItem $request, $id)
     {
-        //
+        $item = TodoItem::find($id);
+        if (!$item) {
+            return response_with_messages('Item not exists', 404, true);
+        }
+        $result = $item->update($request->all());
+        $error = $result ? false : true;
+        $statusCode = $error ? 500 : 201;
+        $message = $error ? 'Some error occurred' : 'Successful';
+        return response_with_messages($message, $statusCode, $error);
     }
 
     /**

@@ -1,9 +1,61 @@
+.custom-checkbox {
+    display        : inline-block;
+    vertical-align : middle;
+    input {
+        display : none;
+        &:checked ~ span {
+            .fa {
+                opacity : 1;
+            }
+        }
+    }
+    span {
+        position      : relative;
+        border        : 1px solid #cccccc;
+        border-radius : 50%;
+        width         : 30px;
+        height        : 30px;
+        margin        : 0;
+        display : block;
+        .fa {
+            position  : absolute;
+            top       : 50%;
+            left      : 50%;
+            transform : translate(-50%, -50%);
+            opacity   : 0;
+            transition: all 0.3s ease-in-out;
+        }
+    }
+}
 
-// Fonts
-@import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);
+body.on-loading {
+    &:before {
+        content: '';
+        display : block;
+        position : fixed;
+        top : 0;
+        left : 0;
+        right : 0;
+        bottom : 0;
+        z-index : 10000;
+        background-color: #fff;
+        opacity : 0.8;
+    }
+    &:after {
+        content: 'LOADING';
+        font-size : 20px;
+        color: #000;
+        display : block;
+        position : fixed;
+        top : 50%;
+        left : 50%;
+        transform: translate(-50%, -50%);
+        z-index : 10000;
+    }
+}
 
-// Variables
-@import "variables";
-
-// Bootstrap
-@import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+.done-task {
+    .card-header > a {
+        text-decoration: line-through;
+    }
+}
